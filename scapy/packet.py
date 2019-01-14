@@ -1510,6 +1510,12 @@ values.
         for pkt in pkts:
             yield cls.convert_packet(pkt, **kwargs)
 
+    def nextlayer(self):
+        pkt = self
+        yield pkt
+        while pkt.payload:
+            pkt = pkt.payload
+            yield pkt
 
 class NoPayload(Packet):
     def __new__(cls, *args, **kargs):
