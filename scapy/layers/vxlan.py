@@ -14,6 +14,7 @@ https://www.ietf.org/id/draft-ietf-nvo3-vxlan-gpe-02.txt
 VXLAN Group Policy Option:
 http://tools.ietf.org/html/draft-smith-vxlan-group-policy-00
 """
+import scapy.modules.six as six
 
 from scapy.packet import Packet, bind_layers, bind_bottom_up, bind_top_down
 from scapy.layers.l2 import Ether
@@ -78,7 +79,10 @@ class VXLAN(Packet):
                 self.underlayer.dport == 250 and \
                 self.flags == 8:
             try:
-                first_byte = ord(payload[0])
+                if six.PY2:
+                    first_byte = ord(payload[0])
+                else:
+                    first_byte = payload[0]
             except IndexError:
                 return IP
 
