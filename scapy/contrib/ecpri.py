@@ -15,6 +15,7 @@
 # scapy.contrib.description = enhanced Common Public Radio Interface (eCPRI)
 # scapy.contrib.status = loads
 
+import struct
 from scapy.packet import Packet, bind_layers, Padding
 from scapy.fields import (
     BitField, ByteField,
